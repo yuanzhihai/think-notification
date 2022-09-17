@@ -3,7 +3,7 @@
 namespace yzh52521\notification\channel;
 
 use yzh52521\mail\Mailable;
-use yzh52521\mail\Mailer as Mailer;
+use yzh52521\Mail as Mailer;
 use yzh52521\Notification;
 use yzh52521\notification\Channel;
 use yzh52521\notification\MailableMessage;
