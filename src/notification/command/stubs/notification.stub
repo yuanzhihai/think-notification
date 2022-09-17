@@ -1,0 +1,24 @@
+<?php
+
+use think\migration\db\Column;
+use think\migration\Migrator;
+
+class CreateNotificationTable extends Migrator
+{
+
+    public function change()
+    {
+        $this->table('notification', ['id' => false, 'primary_key' => 'id'])
+            ->addColumn('id', 'uuid')
+            ->addColumn('type', 'string')
+            ->addColumn('notifiable_id', 'integer')
+            ->addColumn('notifiable_type', 'string')
+            ->addColumn('data', 'text')
+            ->addColumn('read_time', 'timestamp', [
+                'null'    => true,
+                'default' => null
+            ])
+            ->addTimestamps()
+            ->create();
+    }
+}
