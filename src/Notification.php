@@ -1,4 +1,5 @@
 <?php
+
 namespace yzh52521;
 
 use yzh52521\notification\Channel;
@@ -7,9 +8,9 @@ use yzh52521\notification\Notifiable;
 /**
  * Class Notification
  * @package yzh52521
- * @property string  $queue
+ * @property string $queue
  * @property integer $delay
- * @property string  $connection
+ * @property string $connection
  */
 abstract class Notification
 {

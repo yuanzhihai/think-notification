@@ -85,8 +85,8 @@ class Sendcloud
     {
         $sParamStr = "";
         ksort($params);
-        foreach ($params as $sKey => $sValue) {
-            if (is_array($sValue)) {
+        foreach ( $params as $sKey => $sValue ) {
+            if ( is_array($sValue) ) {
                 $value     = implode(";", $sValue);
                 $sParamStr .= $sKey . '=' . $value . '&';
             } else {
@@ -103,7 +103,7 @@ class Sendcloud
      */
     public function send()
     {
-        if ($this->isVoice) {
+        if ( $this->isVoice ) {
             $params = [
                 'phone'   => $this->to,
                 'code'    => $this->data,
@@ -123,9 +123,9 @@ class Sendcloud
 
         $this->signature($params);
 
-        $result = Http::post($url,$params)->array();
+        $result = Http::post($url, $params)->array();
 
-        if (!$result['result'] || $result['statusCode'] != 200) {
+        if ( !$result['result'] || $result['statusCode'] != 200 ) {
             throw new \RuntimeException($result['message'], $result['statusCode']);
         }
 

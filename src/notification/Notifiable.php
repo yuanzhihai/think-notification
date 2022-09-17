@@ -14,7 +14,7 @@ trait Notifiable
 
     public function getPreparedData($channel)
     {
-        if (method_exists($this, $method = 'prepare' . Str::studly($channel))) {
+        if ( method_exists($this, $method = 'prepare' . Str::studly($channel)) ) {
             return $this->{$method}();
         }
     }

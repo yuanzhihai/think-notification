@@ -191,7 +191,7 @@ class Mail
      */
     public function line($line)
     {
-        if (!$this->actionText) {
+        if ( !$this->actionText ) {
             $this->introLines[] = $this->formatLine($line);
         } else {
             $this->outroLines[] = $this->formatLine($line);
@@ -207,7 +207,7 @@ class Mail
      */
     protected function formatLine($line)
     {
-        if (is_array($line)) {
+        if ( is_array($line) ) {
             return implode(' ', array_map('trim', $line));
         }
 

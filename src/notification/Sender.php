@@ -17,13 +17,13 @@ class Sender extends Manager
     /**
      * 发送通知
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
+     * @param Notification $notification
      */
     public function send($notifiables, Notification $notification)
     {
         $notifiables = $this->formatNotifiables($notifiables);
 
-        if ($notification instanceof ShouldQueue) {
+        if ( $notification instanceof ShouldQueue ) {
             $this->sendQueue($notifiables, $notification);
         } else {
             $this->sendNow($notifiables, $notification);
@@ -33,8 +33,8 @@ class Sender extends Manager
     /**
      * 发送通知(立即发送)
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
-     * @param array                   $channels
+     * @param Notification $notification
+     * @param array $channels
      */
     public function sendNow($notifiables, Notification $notification, array $channels = null)
     {
@@ -42,16 +42,16 @@ class Sender extends Manager
 
         $original = clone $notification;
 
-        foreach ($notifiables as $notifiable) {
-            $notificationId = (string) Uuid::uuid4();
+        foreach ( $notifiables as $notifiable ) {
+            $notificationId = (string)Uuid::uuid4();
 
             $channels = $channels ?: $notification->channels($notifiable);
 
-            if (empty($channels)) {
+            if ( empty($channels) ) {
                 continue;
             }
 
-            foreach ($channels as $channel) {
+            foreach ( $channels as $channel ) {
                 $notification = clone $original;
 
                 $notification->id = $notificationId;
@@ -64,7 +64,7 @@ class Sender extends Manager
     /**
      * 发送通知(队列发送)
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
+     * @param Notification $notification
      */
     public function sendQueue($notifiables, Notification $notification)
     {
@@ -74,14 +74,14 @@ class Sender extends Manager
             $this->app->make(Queue::class)->push($job);
         };
 
-        if (in_array(Queueable::class, class_uses_recursive($notification))) {
+        if ( in_array(Queueable::class, class_uses_recursive($notification)) ) {
             $sender = function ($job) use ($notification) {
                 /** @var Queue $queue */
                 $queue = $this->app->make(Queue::class);
 
                 $queue = $queue->connection($notification->connection);
 
-                if ($notification->delay > 0) {
+                if ( $notification->delay > 0 ) {
                     $queue->later($notification->delay, $job, '', $notification->queue);
                 } else {
                     $queue->push($job, '', $notification->queue);
@@ -89,15 +89,15 @@ class Sender extends Manager
             };
         }
 
-        foreach ($notifiables as $notifiable) {
+        foreach ( $notifiables as $notifiable ) {
 
             $channels = $notification->channels($notifiable);
 
-            if (empty($channels)) {
+            if ( empty($channels) ) {
                 continue;
             }
 
-            foreach ($channels as $channel) {
+            foreach ( $channels as $channel ) {
                 $job = new SendQueuedNotifications($notifiable, $notification, [$channel]);
 
                 $sender($job);
@@ -122,7 +122,7 @@ class Sender extends Manager
      */
     protected function formatNotifiables($notifiables)
     {
-        if (!$notifiables instanceof Collection && !is_array($notifiables)) {
+        if ( !$notifiables instanceof Collection && !is_array($notifiables) ) {
             return [$notifiables];
         }
 

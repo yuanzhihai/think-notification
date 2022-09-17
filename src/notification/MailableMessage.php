@@ -31,11 +31,11 @@ class MailableMessage extends Mailable
             $twig->getLoader()->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
         });
 
-        if (!empty($message->from)) {
+        if ( !empty($message->from) ) {
             $this->from($message->from[0], isset($message->from[1]) ? $message->from[1] : null);
         }
 
-        if (is_array($message->to)) {
+        if ( is_array($message->to) ) {
             $this->bcc($message->to);
         } else {
             $this->to($message->to);
@@ -45,16 +45,16 @@ class MailableMessage extends Mailable
             Str::snake(class_basename($this->notification), ' ')
         ));
 
-        foreach ($message->attachments as $attachment) {
+        foreach ( $message->attachments as $attachment ) {
             $this->attach($attachment['file'], $attachment['options']);
         }
 
-        foreach ($message->rawAttachments as $attachment) {
+        foreach ( $message->rawAttachments as $attachment ) {
             $this->attachData($attachment['data'], $attachment['name'], $attachment['options']);
         }
 
         $this->withSymfonyMessage(function (Email $message) {
-            if (!is_null($this->message->priority)) {
+            if ( !is_null($this->message->priority) ) {
                 $message->priority((int)$this->message->priority);
             }
         });

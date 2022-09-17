@@ -15,7 +15,7 @@ class NotificationTable extends Command
 
     public function handle()
     {
-        if (!$this->app->has('migration.creator')) {
+        if ( !$this->app->has('migration.creator') ) {
             $this->output->error('Install think-migration first please');
             return;
         }

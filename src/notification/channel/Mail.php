@@ -1,13 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: yunwuxin <448901948@qq.com>
-// +----------------------------------------------------------------------
+
 namespace yzh52521\notification\channel;
 
 use yzh52521\mail\Mailable;
@@ -30,18 +22,18 @@ class Mail extends Channel
 
     /**
      * 发送通知
-     * @param Notifiable   $notifiable
+     * @param Notifiable $notifiable
      * @param Notification $notification
      */
     public function send($notifiable, Notification $notification)
     {
         $message = $this->getMessage($notifiable, $notification);
 
-        if ($message instanceof MailMessage) {
+        if ( $message instanceof MailMessage ) {
             $message = new MailableMessage($message, $notification);
         }
 
-        if ($message instanceof Mailable) {
+        if ( $message instanceof Mailable ) {
             $this->mailer->send($message);
         }
     }
