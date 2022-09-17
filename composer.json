@@ -9,9 +9,8 @@
         }
     ],
     "require": {
-        "ramsey/uuid": "^4.0",
-        "topthink/think-queue": "^3.0",
-        "topthink/framework": "^6.0"
+        "php": ">=8.0.2",
+        "ramsey/uuid": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -23,6 +22,8 @@
         "yzh52521/think-mailer": "mail channel"
     },
     "require-dev": {
+        "topthink/framework": "^6.0",
+        "topthink/think-queue": "^3.0",
         "topthink/think-migration": "^3.0",
         "yzh52521/think-mailer": "^2.0",
         "yzh52521/easyhttp": "^1.0"
