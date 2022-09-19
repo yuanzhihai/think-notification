@@ -240,4 +240,75 @@ $user->unreadNotifications()->update(['read_time' => now()]);
 ```php
 $user->notifications()->delete();
 ```
+### 短信通知
+必要条件
+```php
+public function __construct()
+    {
+       $this->key =''; //key 
+       $this->user =''; //发件人
+    }
 
+```
+格式化短信通知
+```php
+public function toSendcloud($notifiable)
+{
+    return (new Sendcloud())
+                ->data('Your SMS message content');
+}
+```
+收件人  to()
+
+```php
+public function toSendcloud($notifiable)
+{
+    return (new Sendcloud())
+                ->to('15556666666')
+                ->data('Your SMS message content');
+}
+```
+短信模版 template()
+
+```php
+public function toSendcloud($notifiable)
+{
+    return (new Sendcloud())
+                ->to('15556666666')
+                ->template('40438')
+                ->data('Your SMS message content');
+}
+```
+
+设置为彩信 isMultimedia() or 构造函数 construct 设置 $this->msgType=1 默认 0 短信
+```php
+
+    public function __construct()
+    {
+        $this->messType =1; // 0 表示短信，1 表示彩信，2 表示国际短信，3 表示国内语音，5 表示影音。
+    }
+public function toSendcloud($notifiable)
+{
+    return (new Sendcloud())
+                ->to('15556666666')
+                ->isMultimedia()
+                ->data('Your SMS message content');
+}
+```
+设为语音短信 isVoice() or 构造函数 construct 设置 $this->isVoice=true 默认 false 普通短信
+
+```php
+
+   public function __construct()
+    {
+        $this->isVoice =true; // 语音短信
+    }
+    
+public function toSendcloud($notifiable)
+{
+    return (new Sendcloud())
+                ->to('15556666666')
+                ->isVoice()
+                ->data('Your SMS message content');
+}
+```

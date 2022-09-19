@@ -81,21 +81,14 @@ class Sendcloud
         return $this;
     }
 
-    protected function signature(&$params)
+    protected function signature($params)
     {
-        $sParamStr = "";
         ksort($params);
-        foreach ( $params as $sKey => $sValue ) {
-            if ( is_array($sValue) ) {
-                $value     = implode(";", $sValue);
-                $sParamStr .= $sKey . '=' . $value . '&';
-            } else {
-                $sParamStr .= $sKey . '=' . $sValue . '&';
-            }
+        $signParts = [$this->key, $this->key];
+        foreach ( $params as $key => $value ) {
+            array_splice($signParts, -1, 0, $key . '=' . $value);
         }
-        $sParamStr           = trim($sParamStr, '&');
-        $sSignature          = md5($this->key . "&" . $sParamStr . "&" . $this->key);
-        $params['signature'] = $sSignature;
+        return md5(join('&', $signParts));
     }
 
     /**
@@ -109,7 +102,7 @@ class Sendcloud
                 'code'    => $this->data,
                 'smsUser' => $this->user
             ];
-            $url    = $this->host . 'smsapi/send';
+            $url    = $this->host . 'smsapi/sendVoice';
         } else {
             $params = [
                 'templateId' => $this->template,
@@ -118,10 +111,11 @@ class Sendcloud
                 'vars'       => json_encode($this->data),
                 'smsUser'    => $this->user
             ];
-            $url    = $this->host . 'smsapi/sendVoice';
+            $url    = $this->host . 'smsapi/send';
+
         }
 
-        $this->signature($params);
+        $params['signature'] = $this->signature($params);
 
         $result = Http::post($url, $params)->array();
 
