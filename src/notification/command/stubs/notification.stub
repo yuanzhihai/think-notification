@@ -8,7 +8,7 @@ use yzh52521\Notification;
 use yzh52521\notification\message\Mail;
 use yzh52521\notification\Notifiable;
 
-class {%className%} extends Mailable
+class {%className%} extends Notification
 {
 
     public function __construct()
