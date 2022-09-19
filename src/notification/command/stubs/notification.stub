@@ -1,24 +1,38 @@
 <?php
+declare (strict_types = 1);
 
-use think\migration\db\Column;
-use think\migration\Migrator;
+namespace {%namespace%};
 
-class CreateNotificationTable extends Migrator
+use think\queue\ShouldQueue;
+use yzh52521\Notification;
+use yzh52521\notification\message\Mail;
+use yzh52521\notification\Notifiable;
+
+class {%className%} extends Mailable
 {
 
-    public function change()
+    public function __construct()
     {
-        $this->table('notification', ['id' => false, 'primary_key' => 'id'])
-            ->addColumn('id', 'uuid')
-            ->addColumn('type', 'string')
-            ->addColumn('notifiable_id', 'integer')
-            ->addColumn('notifiable_type', 'string')
-            ->addColumn('data', 'text')
-            ->addColumn('read_time', 'timestamp', [
-                'null'    => true,
-                'default' => null
-            ])
-            ->addTimestamps()
-            ->create();
+        //
     }
+
+   /**
+     * 发送渠道
+     * @param Notifiable $notifiable
+     * @return array
+     */
+    public function channels($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * @param $notifiable
+     * @return Mail
+     */
+    public function toMail($notifiable)
+    {
+        return ( new Mail() )->greeting('hello');
+    }
+
 }

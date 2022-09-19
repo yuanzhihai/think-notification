@@ -25,7 +25,7 @@ class NotificationTable extends Command
         $creator = $this->app->get('migration.creator');
         $path    = $creator->create($className);
         // Load the alternative template if it is defined.
-        $contents = file_get_contents(__DIR__ . '/stubs/notification.stub');
+        $contents = file_get_contents(__DIR__ . '/stubs/notification_table.stub');
 
         file_put_contents($path, $contents);
         $this->output->info('Migration created successfully!');
