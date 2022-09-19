@@ -240,7 +240,9 @@ $user->unreadNotifications()->update(['read_time' => now()]);
 ```php
 $user->notifications()->delete();
 ```
-### 短信通知
+### 短信通知 
+ SMS 通知由 [Sendcloud](https://www.sendcloud.net/)  提供支持  
+
 必要条件
 ```php
 public function __construct()
