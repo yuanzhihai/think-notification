@@ -10,7 +10,7 @@ class Sendcloud
     protected $user;
     protected $key;
 
-    protected $host = "http://www.sendcloud.net/";
+    protected $host = "https://api.sendcloud.net/";
 
     protected $template;
 
