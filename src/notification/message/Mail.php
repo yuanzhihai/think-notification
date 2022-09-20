@@ -30,6 +30,9 @@ class Mail
     /** @var string 视图模板 */
     public $view;
 
+    /** @var string markdown视图模板 */
+    public $markdown;
+
     /** @var array 模板数据 */
     public $viewData = [];
 

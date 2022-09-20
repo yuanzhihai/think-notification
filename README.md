@@ -150,14 +150,15 @@ public function toMail($notifiable)
 
 ```
 
-其他邮件通知格式选项
-使用 view 不要  使用 greeting 、 line 、action 参数 在 view 第二个参数传递
+自定义模板 
+使用 view()  不需要使用 greeting 、 line 、action 等参数 在 view 第二个参数传递
 ```php
 public function toMail($notifiable)
 {
-    return (new Mail)->view(
-        'emails.name', ['invoice' => $this->invoice]
-    );
+    return (new Mail)
+        ->to($to)
+        ->subject('找回密码')
+        ->view('emails.name', ['invoice' => $this->invoice]);
 }
 
 ```

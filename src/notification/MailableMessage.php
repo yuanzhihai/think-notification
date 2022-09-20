@@ -27,9 +27,13 @@ class MailableMessage extends Mailable
     {
         $message = $this->message;
 
-        $this->markdown($message->view ?: '@notification/mail', $message->data(), function (Twig $twig) {
-            $twig->getLoader()->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
-        });
+        if ( $message->view ) {
+            $this->view($message->view, $message->data());
+        } else {
+            $this->markdown($message->view ?: '@notification/mail', $message->data(), function (Twig $twig) {
+                $twig->getLoader()->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
+            });
+        }
 
         if ( !empty($message->from) ) {
             $this->from($message->from[0], isset($message->from[1]) ? $message->from[1] : null);
