@@ -151,6 +151,7 @@ public function toMail($notifiable)
 ```
 
 其他邮件通知格式选项
+使用 view 不要  使用 greeting 、 line 、action 参数 在 view 第二个参数传递
 ```php
 public function toMail($notifiable)
 {
