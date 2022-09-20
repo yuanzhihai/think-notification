@@ -302,7 +302,7 @@ public function toSendcloud($notifiable)
     
 public function toSendcloud($notifiable)
 {
-    return (new Sendcloud())
+    return (new Sendcloud($user,$key))
                 ->to('15556666666')
                 ->isVoice()
                 ->data('Your SMS message content');
