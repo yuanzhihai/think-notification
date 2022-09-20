@@ -176,6 +176,7 @@ public function toMail($notifiable)
 ## 数据库通知
 必要条件
 database 通知通道将通知信息存储在数据库表中。此表将包含通知类型等信息以及描述通知的 JSON 数据结构。
+使用的模型必须  use HasDatabaseNotification Trait
 
 您可以查询该表以在应用程序的用户界面中显示通知。但是，在您这样做之前，您需要创建一个数据库表来保存您的通知。您可以使用 notifications:table 命令生成具有正确表模式的 migration：
 
@@ -185,6 +186,7 @@ php think notification:table
 php think migrate:run
 ```
 ### 格式化数据库通知#
+
 如果通知支持存储在数据库表中，则应在通知类上定义 toDatabase  方法。这个方法将接收一个 $notifiable 实体并且应该返回一个普通的 PHP 数组。 返回的数组将被编码为 JSON 并存储在 notifications 表的 data 列中。让我们看一个示例 toDatabase 方法：
 ```php
 public function toDatabase($notifiable)
