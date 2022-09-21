@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=8.0.2",
-        "ramsey/uuid": "^4.0"
+        "symfony/uid": "^6.0"
     },
     "autoload": {
         "psr-4": {

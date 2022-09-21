@@ -2,7 +2,7 @@
 
 namespace yzh52521\notification;
 
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use think\Collection;
 use think\Manager;
 use think\Queue;
@@ -43,7 +43,7 @@ class Sender extends Manager
         $original = clone $notification;
 
         foreach ( $notifiables as $notifiable ) {
-            $notificationId = (string)Uuid::uuid4();
+            $notificationId = Uuid::v4()->toRfc4122();
 
             $channels = $channels ?: $notification->channels($notifiable);
 
