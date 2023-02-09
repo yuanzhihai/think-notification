@@ -22,7 +22,7 @@
         "yzh52521/think-mailer": "mail channel"
     },
     "require-dev": {
-        "topthink/framework": "^6.0",
+        "topthink/framework": ">=6.0",
         "topthink/think-queue": "^3.0",
         "topthink/think-migration": "^3.0",
         "yzh52521/think-mailer": "^2.0",
