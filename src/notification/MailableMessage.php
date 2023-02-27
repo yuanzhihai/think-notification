@@ -11,16 +11,9 @@ use yzh52521\notification\message\Mail;
 
 class MailableMessage extends Mailable
 {
-    /** @var Mail */
-    protected $message;
 
-    /** @var Notification */
-    protected $notification;
-
-    public function __construct(Mail $message, Notification $notification)
+    public function __construct(protected Mail $message,protected Notification $notification)
     {
-        $this->message      = $message;
-        $this->notification = $notification;
     }
 
     public function build()

@@ -2,7 +2,6 @@
 
 namespace yzh52521;
 
-use yzh52521\notification\Channel;
 use yzh52521\notification\Notifiable;
 
 /**

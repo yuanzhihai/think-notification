@@ -7,8 +7,6 @@ use yzh52521\EasyHttp\Http;
 
 class Sendcloud
 {
-    protected $user;
-    protected $key;
 
     protected $host = "https://api.sendcloud.net/";
 
@@ -22,10 +20,8 @@ class Sendcloud
 
     protected $isVoice = false;
 
-    public function __construct($user, $key)
+    public function __construct(protected $user,protected $key)
     {
-        $this->user = $user;
-        $this->key  = $key;
     }
 
     /**
@@ -83,12 +79,12 @@ class Sendcloud
 
     protected function signature($params)
     {
-        ksort($params);
-        $signParts = [$this->key, $this->key];
+        ksort( $params );
+        $signParts = [$this->key,$this->key];
         foreach ( $params as $key => $value ) {
-            array_splice($signParts, -1, 0, $key . '=' . $value);
+            array_splice( $signParts,-1,0,$key.'='.$value );
         }
-        return md5(join('&', $signParts));
+        return md5( join( '&',$signParts ) );
     }
 
     /**
@@ -96,31 +92,31 @@ class Sendcloud
      */
     public function send()
     {
-        if ( $this->isVoice ) {
+        if ($this->isVoice) {
             $params = [
                 'phone'   => $this->to,
                 'code'    => $this->data,
                 'smsUser' => $this->user
             ];
-            $url    = $this->host . 'smsapi/sendVoice';
+            $url    = $this->host.'smsapi/sendVoice';
         } else {
             $params = [
                 'templateId' => $this->template,
                 'msgType'    => $this->msgType,
                 'phone'      => $this->to,
-                'vars'       => json_encode($this->data),
+                'vars'       => json_encode( $this->data ),
                 'smsUser'    => $this->user
             ];
-            $url    = $this->host . 'smsapi/send';
+            $url    = $this->host.'smsapi/send';
 
         }
 
-        $params['signature'] = $this->signature($params);
+        $params['signature'] = $this->signature( $params );
 
-        $result = Http::post($url, $params)->array();
+        $result = Http::post( $url,$params )->array();
 
-        if ( !$result['result'] || $result['statusCode'] != 200 ) {
-            throw new \RuntimeException($result['message'], $result['statusCode']);
+        if (!$result['result'] || $result['statusCode'] != 200) {
+            throw new \RuntimeException( $result['message'],$result['statusCode'] );
         }
 
     }

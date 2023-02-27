@@ -6,20 +6,9 @@ use yzh52521\Notification;
 
 class SendQueuedNotifications
 {
-    /** @var Notifiable[] */
-    protected $notifiables;
 
-    /** @var Notification */
-    protected $notification;
-
-    /** @var array */
-    protected $channels = null;
-
-    public function __construct($notifiables, Notification $notification, array $channels = null)
+    public function __construct(protected $notifiables,protected Notification $notification,  protected array $channels = [])
     {
-        $this->notifiables  = $notifiables;
-        $this->notification = $notification;
-        $this->channels     = $channels;
     }
 
     public function handle(Sender $sender)
