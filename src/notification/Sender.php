@@ -64,9 +64,9 @@ class Sender extends Manager
     /**
      * 发送通知(队列发送)
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification $notification
+     * @param Notification|ShouldQueue $notification
      */
-    public function sendQueue($notifiables, Notification $notification)
+    public function sendQueue($notifiables, Notification|ShouldQueue $notification)
     {
         $notifiables = $this->formatNotifiables($notifiables);
 
