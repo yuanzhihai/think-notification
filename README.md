@@ -125,7 +125,11 @@ $user->notify(new InvoicePaid($invoice));
 ```
 
 ## 邮件通知
+
+composer require yzh52521/think-mailer
+
 格式化邮件信息
+
 
 如果通知支持作为电子邮件发送，您应该在通知类上定义一个 toMail 方法。 此方法将接收一个 $notifiable 实体并应返回一个 yzh52521\notification\message\Mail 实例。
 
@@ -173,7 +177,7 @@ public function toMail($notifiable)
 }
 ```
 
-其他用法 参考 yzh52521/th-mailer
+其他用法 参考 yzh52521/think-mailer
 
 ## 数据库通知
 必要条件
@@ -249,6 +253,10 @@ $user->notifications()->delete();
 
 必要条件
 $user 发件人 $key sendcloud 申请的key
+
+依赖扩展
+composer require yzh52521/easyhttp
+
 ```php
 public function toSendcloud($notifiable)
 {
@@ -315,7 +323,7 @@ public function toSendcloud($notifiable)
 
 ### easysms 短信通知
 
-依赖 overtrue/easy-sms 
+依赖扩展 overtrue/easy-sms 
 
 composer require overtrue/easy-sms
 
