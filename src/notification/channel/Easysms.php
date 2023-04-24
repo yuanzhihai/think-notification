@@ -19,10 +19,9 @@ class Easysms extends Channel
 
         $message = $this->getMessage( $notifiable,$notification );
 
-        $to = $notifiable->getPreparedData( 'easysms' );
+        if ($message instanceof \yzh52521\notification\message\Easysms) {
+            $message->send();
+        }
 
-        return app()
-            ->make( \Overtrue\EasySms\EasySms::class )
-            ->send( $to,$message );
     }
 }
