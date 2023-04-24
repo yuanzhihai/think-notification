@@ -385,7 +385,7 @@ class ValidateCode extends Notification
        return ( new Easysms )
                ->to('13188888888') 
                ->template('SMS_001')  
-               ->content('您的验证码为: 6379')
+               ->content('您的验证码{$code}，该验证码5分钟内有效，请勿泄漏于他人！')
                ->gateway(['aliyun']) //可忽略 
                ->data(['code' =>6379]);
     }
