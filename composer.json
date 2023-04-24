@@ -26,7 +26,8 @@
         "topthink/think-queue": "^3.0",
         "topthink/think-migration": "^3.0",
         "yzh52521/think-mailer": "^2.0",
-        "yzh52521/easyhttp": "^1.0"
+        "yzh52521/easyhttp": "^1.0",
+        "overtrue/easy-sms": "^2.4"
     },
     "extra": {
         "think": {

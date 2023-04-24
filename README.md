@@ -312,3 +312,86 @@ public function toSendcloud($notifiable)
                 ->data('Your SMS message content');
 }
 ```
+
+### easysms 短信通知
+
+必要条件 依赖 overtrue/easy-sms 
+
+
+
+创建通知
+```php
+
+namespace app\notification;
+
+class ValidateCode extends Notification
+{
+/**
+     * @var string
+     */
+    public $code = '';
+    /**
+     * @var string
+     */
+    public $template = "";
+    
+    /**
+     * ValidateCode constructor.
+     *
+     * @param        $template
+     * @param string $code
+     */
+    public function __construct(string $template, string $code = '')
+    {
+        $this->template = $template;
+        $this->code      = $code;
+        
+    }
+    public function channels($notifiable)
+    {
+         return ['easysms'];
+    }
+    
+    public function toEasysms($notifiable)
+    {
+       return ( new Easysms )
+               ->setContent('验证码是$code') 
+               ->setTemplate('模版号')  
+               ->setData(['code' =>rand(1000, 9999)]);
+    }
+}
+
+```
+
+发送短信通知
+
+继承创建手机号码类,需要插入trait Notifiable ，这里直接继承\Overtrue\EasySms\PhoneNumber，并实现prepareEasysms方法。
+
+```php
+namespace app\notification\user;
+
+class PhoneNumber extends \Overtrue\EasySms\PhoneNumber
+{
+   use Notifiable;
+   
+   /**
+    * @return $this
+    */
+   public function prepareEasysms()
+   {
+       return $this;
+   }
+   
+}
+```
+
+执行发送短信
+
+```php
+        $to = '181*****932';   
+        // 使用 Notifiable Trait 发送
+        (new \app\notification\user\PhoneNumber($to))->notify(new \app\notification\ValidateCode('SMS_15****670'));
+
+        // 使用 Notification Facade 发送
+        Notification::send( new \app\notification\user\PhoneNumber($to), new \app\notification\ValidateCode('SMS_15****670'));
+```
