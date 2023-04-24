@@ -1,6 +1,6 @@
 # ThinkPHP6+ 消息通知扩展
 
-支持`mail` `sms` `database`等驱动
+支持`mail` `sms` `easysms` `database`等驱动
 
 ## 应用场景
 
@@ -62,7 +62,7 @@ Notification::sendNow($developers, new DeploymentCompleted($deployment));
 
 ```
 ## 发送指定频道
-每个通知类都有一个 channels 方法，用于确定将在哪些通道上传递通知。通知可以在 mail、database、sms 频道上发送。
+每个通知类都有一个 channels 方法，用于确定将在哪些通道上传递通知。通知可以在 mail、database、sms、easysms 频道上发送。
 
 channels 方法接收一个 $notifiable 实例，这个实例将是通知实际发送到的类的实例。你可以用 $notifiable 来决定这个通知用哪些频道来发送：
 
@@ -315,9 +315,9 @@ public function toSendcloud($notifiable)
 
 ### easysms 短信通知
 
-必要条件 依赖 overtrue/easy-sms 
+依赖 overtrue/easy-sms 
 
-
+composer require overtrue/easy-sms
 
 创建通知
 ```php
@@ -326,27 +326,7 @@ namespace app\notification;
 
 class ValidateCode extends Notification
 {
-/**
-     * @var string
-     */
-    public $code = '';
-    /**
-     * @var string
-     */
-    public $template = "";
-    
-    /**
-     * ValidateCode constructor.
-     *
-     * @param        $template
-     * @param string $code
-     */
-    public function __construct(string $template, string $code = '')
-    {
-        $this->template = $template;
-        $this->code      = $code;
-        
-    }
+
     public function channels($notifiable)
     {
          return ['easysms'];
@@ -358,7 +338,7 @@ class ValidateCode extends Notification
                ->to('13188888888') 
                ->template('SMS_001')  
                ->content('您的验证码为: 6379')
-               ->gateway(['aliyun'])
+               ->gateway(['aliyun']) //可忽略 
                ->data(['code' =>6379]);
     }
 }
