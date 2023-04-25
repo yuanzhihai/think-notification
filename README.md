@@ -326,14 +326,14 @@ public function toSendcloud($notifiable)
 
 ### easysms 短信通知
 
-依赖扩展 overtrue/easy-sms 
+依赖扩展 yzh52521/think-sms 
 
 ```
-composer require overtrue/easy-sms
+composer require yzh52521/think-sms 
 ```
-easysms 配置 
+sms 配置 
 
- config/easysms.php
+ config/sms.php
 ```php
 $config = [
     // HTTP 请求的超时时间（秒）
@@ -346,16 +346,13 @@ $config = [
 
         // 默认可用的发送网关
         'gateways' => [
-            'yunpian', 'aliyun',
+            'aliyun',
         ],
     ],
     // 可用的网关配置
     'gateways' => [
         'errorlog' => [
             'file' => '/tmp/easy-sms.log',
-        ],
-        'yunpian' => [
-            'api_key' => '824f0ff2f71cab52936axxxxxxxxxx',
         ],
         'aliyun' => [
             'access_key_id' => '',
@@ -372,6 +369,8 @@ $config = [
 
 namespace app\notification;
 
+use yzh52521\notification\message\Easysms;
+
 class ValidateCode extends Notification
 {
 
@@ -386,7 +385,6 @@ class ValidateCode extends Notification
                ->to('13188888888') 
                ->template('SMS_001')  
                ->content('您的验证码{$code}，该验证码5分钟内有效，请勿泄漏于他人！')
-               ->gateway(['aliyun']) //可忽略 
                ->data(['code' =>6379]);
     }
 }

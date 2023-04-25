@@ -5,7 +5,6 @@ namespace yzh52521\notification\channel;
 use yzh52521\Notification;
 use yzh52521\notification\Channel;
 use yzh52521\notification\Notifiable;
-use yzh52521\notification\trait\PhoneNumber;
 
 class Easysms extends Channel
 {

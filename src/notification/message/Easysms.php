@@ -2,7 +2,8 @@
 
 namespace yzh52521\notification\message;
 
-use Overtrue\EasySms\Message;
+
+use yzh52521\sms\Message;
 
 class Easysms extends Message
 {
@@ -73,7 +74,7 @@ class Easysms extends Message
 
     public function send()
     {
-        app()->Easysms->send( $this->to,[
+        app( 'Easysms' )->send( $this->to,[
             'content'  => $this->content,
             'template' => $this->template,
             'data'     => $this->data,
