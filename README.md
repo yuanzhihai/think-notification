@@ -448,3 +448,12 @@ class InvoicePaid extends Notification
     }
 }
 ```
+自定义 VoiceMessage
+
+```php
+
+class VoiceMessage 
+{
+     // ...
+}
+```
