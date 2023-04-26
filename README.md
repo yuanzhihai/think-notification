@@ -390,3 +390,61 @@ class ValidateCode extends Notification
 }
 
 ```
+
+## 自定义频道
+
+> think-notification 提供了一些通知频道，但你可能想编写自己的驱动程序，以通过其他频道传递通知。要开始，定义一个包含 send 方法的类。该方法应接收两个参数：$notifiable 和 $notification
+在 send 方法中，你可以调用通知上的方法来检索一个由你的频道理解的消息对象，然后按照你希望的方式将通知发送给 $notifiable 实例：
+
+```php
+namespace app\notification;
+
+use yzh52521\notification\Notifiable;
+use yzh52521\notification\Channel;
+use yzh52521\Notification;
+
+class VoiceChannel extends Channel
+{
+
+     /**
+     * 发送给定的通知
+     * @param Notifiable $notifiable
+     * @param Notification $notification
+     * @return mixed
+     */
+    public function send($notifiable, Notification $notification): void
+    {
+        $message = $notification->toVoice($notifiable);
+
+        // 将通知发送给 $notifiable 实例...
+    }
+}
+```
+> 一旦你定义了你的通知频道类，你可以从你的任何通知的 channels 方法返回该类的名称。在这个例子中，你的通知的 toVoice 方法可以返回你选择来表示语音消息的任何对象。例如，你可以定义自己的 VoiceMessage 类来表示这些消息：
+
+```php
+use yzh52521\Notification;
+use yzh52521\notification\Notifiable;
+
+class InvoicePaid extends Notification
+{
+
+    /**
+     * 获取通知频道
+     * @param Notifiable $notifiable
+     */
+    public function channels( $notifiable)
+    {
+        return VoiceChannel::class;
+    }
+
+    /**
+     * 获取通知的语音表示形式
+     * @param Notifiable $notifiable
+     */
+    public function toVoice($notifiable): VoiceMessage
+    {
+        // ...
+    }
+}
+```
