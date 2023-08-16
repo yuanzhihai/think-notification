@@ -3,10 +3,13 @@
 namespace yzh52521\notification;
 
 use yzh52521\Notification;
+use yzh52521\notification\model\SerializesModel;
+
 class SendQueuedNotifications
 {
+    use SerializesModel;
 
-    public function __construct(protected $notifiable,protected Notification $notification,  protected array $channels = [])
+    public function __construct(protected $notifiable, protected Notification $notification, protected array $channels = [])
     {
     }
 
@@ -22,7 +25,7 @@ class SendQueuedNotifications
      */
     public function failed()
     {
-        if ( method_exists($this->notification, 'failed') ) {
+        if (method_exists($this->notification, 'failed')) {
             $this->notification->failed($this->notifiable);
         }
     }
