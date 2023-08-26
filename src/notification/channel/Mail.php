@@ -3,7 +3,7 @@
 namespace yzh52521\notification\channel;
 
 use yzh52521\mail\Mailable;
-use yzh52521\Mail as Mailer;
+use yzh52521\MailManager;
 use yzh52521\Notification;
 use yzh52521\notification\Channel;
 use yzh52521\notification\MailableMessage;
@@ -12,10 +12,10 @@ use yzh52521\notification\Notifiable;
 
 class Mail extends Channel
 {
-    /** @var Mailer */
+    /** @var MailManager */
     protected $mailer;
 
-    public function __construct(Mailer $mailer)
+    public function __construct(MailManager $mailer)
     {
         $this->mailer = $mailer;
     }
@@ -34,7 +34,7 @@ class Mail extends Channel
         }
 
         if ( $message instanceof Mailable ) {
-            $this->mailer->send($message);
+            $this->$message->send($this->mailer);
         }
     }
 }
