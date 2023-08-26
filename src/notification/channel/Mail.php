@@ -34,7 +34,7 @@ class Mail extends Channel
         }
 
         if ( $message instanceof Mailable ) {
-            $this->$message->send($this->mailer);
+            $message->send($this->mailer);
         }
     }
 }
