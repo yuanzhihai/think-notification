@@ -22,6 +22,8 @@ class MailableMessage extends Mailable
 
         if ( $message->view ) {
             $this->view($message->view, $message->data());
+        }else{
+            $this->view(dirname(__FILE__) . '/view/mail.html', $message->data());
         }
 
         if ( !empty($message->from) ) {
